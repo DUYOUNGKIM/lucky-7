@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>LUCKY-SEVEN</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .mytitle {
+            width: 100%;
+            height: 230px;
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/originals/45/df/67/45df67399edbaa45bfc53abe9258d156.jpg');
+            background-position: center;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .mybtns > button:hover {
+            border: 2px solid yellow;
+        }
+        .mybtns > button {
+            width: 200px;
+            height: 60px;
+            margin: 30px auto 0px auto;
+            background-color:#D2E9BF;
+            border-radius: 15%;
+            margin-right: 50px;
+        }
+        .mycomment {
+            color: gray;
+        }
+
+        .mycards {
+            margin: 20px auto 0px auto;
+            width: 95%;
+            max-width: 500px;
+            display: none;
+            line-height: 150%;
+        }
+        .mycards > .card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: darkgreen;
+            box-shadow: 0px 0px 5px 0px darkgreen;
+            margin: 50px auto 20px auto;
+            padding: 20px;
+        }
+        .mypost {
+            width: 700px;
+            max-width: 1500px;
+            margin: 100px auto 0px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px gray;
+            display: none;
+
+        }
+
+        .mybtns {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 20px;
+        }
+        .mybtns > button {
+            margin-right: 10px;
+        }
+        .comment{
+            width: 700px;
+            max-width: 1500px;
+            margin: 100px auto 0px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 3px 0px gray;
+            display: none;
+        }
+        .btn btn-dark{
+            margin-top: 20px;
+
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+          listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/movie',
+                data: {},
+                success: function (response) {
+                    let rows = response['movies']
+                    for(let i = 0; i<rows.length;i++){
+                        let comment = rows[i]['comment']
+                        let title = rows[i]['title']
+                        let desc = rows[i]['desc']
+                        let star = rows[i]['star']
+                        let image = rows[i]['image']
+
+                        let star_image = '⭐'.repeat(별)
+
+                        let temp_html = ` <div class="col">
+            <div class="card h-100">
+                <img src="${image}"
+                     class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${desc}</p>
+                    <p>${star_image}</p>
+                    <p class="mycomment">${comment}</p>
+                </div>
+            </div>
+        </div>`
+                         $('#cards-box').append(temp_html)
+
+                    }
+                    //console.log(response['movies']) 확인용
+                }
+            })
+        }
+
+        function save_comment() {
+            comment = $('#comment').val();
+            name = $('name').val();
+            let temp_html = `<div class="card" id="card">
+                             <div class="mycards">
+                             <p>${comment}</p>
+                             <p>${name}</p>
+                             </div>
+                             </div>
+            if (comment !== '') {
+                $('#comment-list').append(temp_html)
+            } else {
+            }
+        }
+
+</div>`
+        }
+
+        function posting() {
+            let url = $('#url').val()
+            let star = $('#star').val()
+            let comment = $('#comment').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/movie',
+                data: {url_give:url,star_give:star,comment_give:comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+        }
+        function open_rule(){
+             $('#post-box').show()
+        }
+        function close_rule(){
+             $('#post-box').hide()
+        }
+
+        function open_box(){
+            $('#comment-list').show()
+        }
+        function close_box(){
+            $('#comment-list').hide()
+        }
+        function open_comment(){
+            $('#teamcomment').show()
+        }
+        function close_comment(){
+            $('#teamcomment').hide()
+        }
+    </script>
+</head>
+
+<body>
+<div class="mytitle">
+    <h1>Lucky Seven</h1>
+    <div class="mybtns">
+        <button onclick="open_rule()" type="button">팀목표&#127808;</button>
+        <button onclick="open_box()" type="button" >팀소개&#127808;</button>
+      <button onclick="open_comment()" type="button" >방명록작성&#127808;</button>
+      </button>
+    </div>
+</div>
+
+</div>
+<div class="mypost" id="post-box">
+   <div class="card border-success mb-3" style="max-width:1400px;">
+  <div class="card-header bg-transparent border-success">Lucky Seven조</div>
+  <div class="card-body text-success">
+    <h5 class="card-title">팀의 목표</h5>
+    <p class="card-text">
+        * 미니프로젝트를 통해 협업하는 방법과 프로젝트에서 필수적으로 생각한
+         기능을 구현해내는 것이 목표입니다.<br>
+
+  </div>
+   </div>
+      <button onclick="close_rule()" type="button" class="btn btn-outline-dark">닫기</button>
+</div>
+<div class="mycards" id="comment-list">
+      <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+              <div class="col-md-4">
+                  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FQDYu6%2FbtrQe09Q3dQ%2FwkvFulvRFHW3gR8F7PXxNk%2Fimg.jpg" alt="이미지분실"
+                  style="width:150px; height:300px;">
+              </div>
+              <div class="col-md-8">
+                  <div class="card-body">
+                      <h3 class="card-title">김두영</h3>
+                      <p class="card-text">&nbsp</p>
+                      <p class="card-text">MBTI: INFP </p>
+                      <p class="card-text">취미: 풋살 </p>
+                      <p class="card-text">자신의 장점: 공감능력 上 </p>
+                      <p class="card-text">협업 스타일: 주체적이기보단 잘따르는 스타일 </p>
+                      <a href="https://www.naver.com/">블로그 이동</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+              <div class="col-md-4">
+                  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FcPNlZT%2FbtrQe3yHZWb%2FFndh9CuAQbZQVk2TdB8vl1%2Fimg.jpg" alt="이미지분실"
+                   style="width:150px; height:300px;">
+              </div>
+              <div class="col-md-8">
+                  <div class="card-body">
+                      <h3 class="card-title">진재혁</h3>
+                      <p class="card-text">&nbsp</p>
+                      <p class="card-text">MBTI: ISTP </p>
+                      <p class="card-text">취미: 헬스 </p>
+                      <p class="card-text">자신의 장점: 긍정적인 성격 GOOD </p>
+                      <p class="card-text">협업 스타일: 팀원의 의견을 존중하는 스타일 </p>
+                      <a href="https://www.naver.com/">블로그 이동</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+              <div class="col-md-4">
+                  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FbAfavO%2FbtrQcNRv5Es%2FWaSUr2mQVrGsERJckluu61%2Fimg.jpg" alt="이미지분실"
+                  style="width:150px; height:300px;">
+              </div>
+              <div class="col-md-8">
+                  <div class="card-body">
+                      <h3 class="card-title">노예진</h3>
+                      <p class="card-text">&nbsp</p>
+                      <p class="card-text">MBTI: INTJ</p>
+                      <p class="card-text">취미: 음악듣기,산책 </p>
+                      <p class="card-text">자신의 장점: 일처리의 끝맽음이 훌륭함</p>
+                      <p class="card-text">협업 스타일: 의견을 경청하고 협업에 능동적임</p>
+                      <a href="https://velog.io/@wls1234">블로그 이동</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+              <div class="col-md-4">
+                  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FbG9Ebm%2FbtrQdys7BjS%2FoaYheDptkQrI6hm7zg3Vp1%2Fimg.jpg" alt="이미지분실"
+                  style="width:150px; height:300px;">
+              </div>
+              <div class="col-md-8">
+                  <div class="card-body">
+                      <h3 class="card-title">송성원</h3>
+                      <p class="card-text">&nbsp</p>
+                      <p class="card-text">MBTI: ENTP </p>
+                      <p class="card-text">취미: 농구 각종 운동 </p>
+                      <p class="card-text">자신의 장점: 의견을 존중하며 융합하려고 시도함 </p>
+                      <p class="card-text">협업 스타일: 적극적으로 협업에 임하는 스타일</p>
+                      <a href="https://www.naver.com/">블로그 이동</a>
+                  </div>
+              </div>
+          </div>
+
+    </div>
+    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
+</div>
+<div class="comment" id="teamcomment">
+<div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="url">
+        <label for="floatingInput">닉네임</label>
+    </div>
+    <div class="form-floating">
+<textarea class="form-control" placeholder="Leave a comment here" id="comment"
+          style="height: 100px"></textarea>
+        <label for="floatingTextarea2">방명록</label>
+    </div>
+    <button onclick="save_comment()" type="button" class="btn btn-dark">방명록 남기기</button>
+   <button onclick="close_comment()" type="button" class="btn btn-dark">닫기</button>
+
+</div>
+    <div class="card">
+            <div class="card w-150">
+                <div class="card-body">
+                    <h5 class="card-title">이름</h5>
+                    <p class="card-text">방명록</p>
+                    <button onclick="del_comment(${num})" type="button" class="btn btn-dark">삭제</button>
+                </div>
+            </div>
+    </div>
+    <div class="card">
+            <div class="card w-150">
+                <div class="card-body">
+                    <h5 class="card-title">이름</h5>
+                    <p class="card-text">방명록</p>
+                    <button onclick="del_comment(${num})" type="button" class="btn btn-dark">삭제</button>
+                </div>
+            </div>
+    </div>
+    <div class="card">
+            <div class="card w-150">
+                <div class="card-body">
+                    <h5 class="card-title">이름</h5>
+                    <p class="card-text">방명록</p>
+                    <button onclick="del_comment(${num})" type="button" class="btn btn-dark">삭제</button>
+                </div>
+            </div>
+    </div>
+</div>
+</body>
+
+</html>
