@@ -87,6 +87,9 @@
         .mybtns > button {
             margin-right: 10px;
         }
+        .comment{
+            display: none;
+        }
     </style>
     <script>
         $(document).ready(function(){
@@ -157,6 +160,12 @@
         function close_box(){
             $('#teaminfo').hide()
         }
+        function open_comment(){
+            $('#teamcomment').show()
+        }
+        function close_comment(){
+            $('#teamcomment').hide()
+        }
     </script>
 </head>
 
@@ -166,9 +175,9 @@
     <div class="mybtns">
         <button onclick="open_rule()" type="button" class="btn btn-outline-dark">팀규칙</button>
         <button onclick="open_box()" type="button" class="btn btn-outline-dark">팀소개</button>
-        <button onclick="close_box()" type="button" class="btn btn-outline-dark">팀소개닫기</button>
-      <button onclick="" type="button" class="btn btn-outline-dark">방명록작성</button>
-      <button onclick="location.href='index.html'" type="button" class="btn btn-outline-success">방명록 가기</button>
+
+      <button onclick="open_comment()" type="button" class="btn btn-outline-dark">방명록작성</button>
+      <!--<button onclick="location.href='index.html'" type="button" class="btn btn-outline-success">방명록 가기</button>-->
     </div>
 
 </div>
@@ -242,8 +251,21 @@
     </div>
   </div>
 </div>
+    <button onclick="close_box()" type="button" class="btn btn-outline-dark">닫기</button>
 </div>
-
+<div class="comment" id="teamcomment">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="name" placeholder="url">
+        <label for="floatingInput">닉네임</label>
+    </div>
+    <div class="form-floating">
+<textarea class="form-control" placeholder="Leave a comment here" id="comment"
+          style="height: 100px"></textarea>
+        <label for="floatingTextarea2">응원댓글</label>
+    </div>
+    <button onclick="save_comment()" type="button" class="btn btn-dark">응원 남기기</button>
+   <button onclick="close_comment()" type="button" class="btn btn-dark">닫기</button>
+</div>
 </body>
 
 </html>
