@@ -12,74 +12,187 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
 
-    <title>LUCKY7</title>
+    <title>Lucky-7 webpage</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
     <style>
-        .welcome-header{
-            padding: 20px;
-            margin-bottom: 15px;
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .mytitle {
+            width: 100%;
+            height: 250px;
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/originals/45/df/67/45df67399edbaa45bfc53abe9258d156.jpg');
+            background-position: center;
+            background-size: cover;
+            color: white;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-    }
-    .wellcome-header__title{
-        margin-bottom: 20px;
-        font-size: 25px;
-    }
-    .wellcome-header__text {
-        width: 70%;
-        opacity: 0.7;
-    }
-    .icon-row{
-    display: flex;
-    justify-content: space-between;
+        }
+        .mybtns > button:hover {
+            border: 2px solid yellow;
+        }
+        .mybtns > button {
+            width: 250px;
+            height: 60px;
+            margin: 50px auto 0px auto;
+            background-color:#D2E9BF;
+            border-radius: 15%;
+            margin-right: 50px;
+        }
+        .blog > button{
+            display: flex;
+            width: 120px;
+            height: 30px;
+            background-color: #B4CAD7;
+            margin-left: 80px;
+            color: gray;
+            border-radius: 15%;
+            padding-left: 20px;
+        }
+        .blog > button:hover{
+            border: 2px solid yellow;
+        }
 
-}
 
-.icon-row__icon{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.icon-row__icon i{
-    font-size: 35px;
 
-}
+        .mycards {
+            margin: 50px auto 0px auto;
+            width: 70%;
+            max-width: 1200px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            display: flex;
 
-.icon-row__icon span{
-    margin-top: 18px;
+        }
 
-}
 
     </style>
     <script>
+         function open_box(){
+            $('#team').show()
+        }
+        function close_box(){
+            $('#team').hide()
+        }
 
     </script>
 </head>
 
 <body>
-<header class="welcome-header">
-    <h1 class="wellcome-header__title">Welcome to Lucky7 </h1>
-    <p class="wellcome-header__text">
-       (방문하신분들은 방명록을 남겨주세요!)
-    </p>
-    <div class="icon-row">
-        <div class="icon-row__icon">
-          팀원소개
+<div class="mytitle">
+    <h1>Lucky Seven</h1>
+    <div class="mybtns">
+        <button onclick="open_box()" type="button">팀소개&#127808;</button>
+        <button onclick="close_box()" type="button" >팀소개닫기&#127808;</button>
+      <button onclick="" type="button" >방명록작성&#127808;</button>
+      <button onclick="location.href='index.html'" type="button">방명록 가기&#127808;</button>
+    </div>
+
+</div>
+<div class="mycards" id="team">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://ddnews.co.kr/wp-content/uploads/2021/12/INFP-1.png"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">나를 한마디로 표현</h5>
+                   <div>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                    </div>
+                    <span class="blog">
+                        <button onclick="location.href='#블로그 주소'" type="button">블로그 이동&#128210;</button>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="icon-row__icon">
-            블로그내용
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://ddnews.co.kr/wp-content/uploads/2021/12/INFP-1.png"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">나를 한마디로 표현</h5>
+                    <div>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                    </div>
+                    <span class="blog">
+                        <button onclick="location.href='#블로그 주소'" type="button">블로그 이동</button>
+                    </span>
+                </div>
+            </div>
+
         </div>
-        <div class="icon-row__icon">
-            느낀점
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://ddnews.co.kr/wp-content/uploads/2021/12/INFP-1.png"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">나를 한마디로 표현</h5>
+                    <div>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                    </div>
+                    <span class="blog">
+                        <button onclick="location.href='#블로그 주소'" type="button">블로그 이동</button>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="icon-row__icon">
-           블로그주소
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://ddnews.co.kr/wp-content/uploads/2021/12/INFP-1.png"
+                     class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">나를 한마디로 표현</h5>
+                   <div>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                        <li>
+                            자기소개
+                        </li>
+                    </div>
+                    <span class="blog">
+                        <button onclick="location.href='블로그 주소'" type="button">블로그 이동</button>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
-</header>
+</div>
 </body>
 
 </html>
-
